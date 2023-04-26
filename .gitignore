@@ -1,0 +1,8 @@
+
+package-lock.json
+.env
+
+#dependency directories
+node_modules/
+
+
