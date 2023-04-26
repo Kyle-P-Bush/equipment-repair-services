@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Customer Login</title>  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body> 
+        <div class="bg-success text-black">
+
+            <div class="d-flex flex-row bd-highlight mb-3">
+                <div> <img src='assets/one.jpg'height='225' width='800'></div>
+                <div> <img src='assets/two.jpg'height='225' width='800'></div>
+                <div> <img src='assets/three.png'height='225' width='800'></div>    
+            </div>
+            <p> 
+            <h2 class="text-center mb-3" style="font-style: normal">Outdoor Power Sales & Solutions Estimate Repair Scheduler</h2>
+            </p> 
+
+
+            <div class="d-flex flex-row">
+
+                <div class="container mt-5" style="background-color:#97978c" >
+                    <div class="row justify-content-left">
+                        <div class="col-md-6">
+                            <h2 class="text-center mb-3">Customer Login</h2>
+                            <h4 class="text-center mb-3">For existing accounts</h4>
+                            <form id="loginForm">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block  btn-lg font-weight-bold btn-text-dark">Login</button>
+                            </form>       
+                        </div>
+                        <div class="col-md-6">
+                            <h2 class="text-center mb-3">Customer Registration</h2>
+                            <h4 class="text-center mb-3">To create an account</h4>
+                            <form id="registrationForm">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input type="text" class="form-control" id="address" placeholder="Enter address">
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city" placeholder="Enter city">
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <input type="text" class="form-control" id="state" placeholder="Enter state">
+                                </div>
+                                <div class="form-group">
+                                    <label for="zip">Zip Code</label>
+                                    <input type="text" class="form-control" id="zip" placeholder="Enter zip code">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="text" class="form-control" id="phone" placeholder="Enter phone number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password">
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block  btn-lg font-weight-bold btn-text-dark">Create account & Login </button>
+                            </form>  
+                        </div> 
+                    </div>
+                </div>
+                <div class="container mt-12" >
+                    <h2>Outdoor Power Sales & Solutions Options</h2>
+                    <ul>    
+                        <li><h3>Have a technician come out to you for an estimate </h3> </li>
+                        <li><h3>Schedule a pick up for your equipment</h3> </li>
+                        <li><h3>Get a virtual estimate for repairs</h3> </li>
+                        <li><h3>Schedule a mobile repair</h3>   </li> 
+                    </ul>
+
+                    <div> <img src='assets/download.png'height='500' width='900'></div>
+
+                </div>    
+            </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.getElementById("registrationForm").addEventListener("submit", (e) => {
+                    e.preventDefault(); // Prevent form from refreshing the page
+                    console.log("Form submitted"); // Log a message when the form is submitted
+
+                    const data = {
+                        name: e.target.name.value,
+                        address: e.target.address.value,
+                        city: e.target.city.value,
+                        state: e.target.state.value,
+                        zip: e.target.zip.value,
+                        phone: e.target.phone.value,
+                        email: e.target.email.value,
+                        password: e.target.password.value,
+                    };
+
+                    fetch("/register", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(data),
+                    })
+                        .then((res) => res.text())
+                        .then((response) => {
+                            if (response === "User registered successfully") {
+                                // Redirect to another page or show a success message
+                                alert("User registered successfully");
+                            } else {
+                                // Show an error message
+                                alert("Error: " + response);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
+                });
+                document.getElementById("loginForm").addEventListener("submit", (e) => {
+                    e.preventDefault(); // Prevent form from refreshing the page
+                    console.log("Login form submitted"); // Log a message when the form is submitted
+
+                    const data = {
+                        email: e.target.email.value,
+                        password: e.target.password.value,
+                    };
+
+                    fetch("/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(data),
+                    })
+                        .then((res) => res.json())
+                        .then((response) => {
+                            if (response.message === "User logged in successfully") {
+                                // Redirect to another page or show a success message
+                                window.location.href = "options.html";
+                            } else {
+                                // Show an error message
+                                alert("Error: " + response.message);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
+                });
+            });
+        </script>
+
+    </body>
+</html>
