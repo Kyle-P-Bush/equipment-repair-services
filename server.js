@@ -6,9 +6,11 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require("bcrypt");
+const session = require('express-session');
 
 
-const User = require('./models/User');
+
+const {User, UserOptions} = require('./models/User');
 const path = require('path');
 
 
@@ -18,6 +20,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //for the pictures
 app.use(express.static('public'));
+
+//express-session for cookies
+app.use(session({
+    secret: process.env.SESSION_SECRET, // Replace this with a unique secret for your application
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    }
+}));
+
+//auth imports
+const passport = require('passport');
+require('./config/passport')(passport);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 mongoose.connect(process.env.MONGODB_URI, {
@@ -32,6 +51,11 @@ app.get('/', (req, res) => {
 app.get('/options.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/options.html'));
 });
+
+app.get('/some-page-after-submitting-options', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/after-options-submit.html'));
+});
+
 
 mongoose.connection.on('connected', () => {
     console.log('Connected to MongoDB');
@@ -92,6 +116,31 @@ app.post("/login", async (req, res) => {
     // If the email and password are valid, return a success message
     res.json({message: "User logged in successfully" });
 });
+
+app.post('/options', async (req, res) => {
+    const { brand, equipment, requests, symptoms } = req.body;
+
+    if (req.isAuthenticated()) {
+        const userOptions = new UserOptions({
+            brand,
+            equipment,
+            requests,
+            symptoms,
+            userId: req.user.id,
+        });
+
+        try {
+            await userOptions.save();
+            res.status(201).send('User options saved');
+        } catch (err) {
+            res.status(500).send('Error saving user options');
+            console.error(err);
+        }
+    } else {
+        res.status(401).send('Unauthorized');
+    }
+});
+
 
 
 app.listen(3000, () => {

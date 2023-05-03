@@ -2,7 +2,6 @@
 <html>
     <head>
         <title>Dropdowns and Checkboxes Example</title>
-        <title>Customer Login</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
     <body>
@@ -53,7 +52,7 @@
                             <input type="checkbox" id="checkbox4" name="checkbox4" value="Check belts">
                             <label for="checkbox4">Check Belts</label>
                             <br>
-                            <input type="checkbox" id="checkbox5" name="checkbox6" value="Repair flats">
+                            <input type="checkbox" id="checkbox5" name="checkbox5" value="Repair flats">
                             <label for="checkbox5">Repair flats</label>
                             <br>
                             <input type="checkbox" id="checkbox6" name="checkbox6" value="Check starter">
@@ -82,16 +81,6 @@
                         </form>
                     </div>
                 </div>	
-                <div  style="background-color:#797264" >
-                    <div class="col-md-6">				
-                        <form>					
-
-
-                        </form>
-
-                    </div>
-
-                </div>
                 <div >
 
                     <ul>    
@@ -110,6 +99,44 @@
             </div>	
         </div>
         </div>
+        <script>
+            document.getElementById('options-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(e.target);
+                const brand = formData.get('brand');
+                const equipment = formData.get('equipment');
+                const requests = [];
+                const symptoms = [];
+
+                for (let i = 1; i <= 6; i++) {
+                    if (formData.get(`checkbox${i}`)) {
+                        requests.push(formData.get(`checkbox${i}`));
+                    }
+                }
+
+                for (let i = 7; i <= 11; i++) {
+                    if (formData.get(`checkbox${i}`)) {
+                        symptoms.push(formData.get(`checkbox${i}`));
+                    }
+                }
+
+                const requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ brand, equipment, requests, symptoms }),
+                };
+
+                const response = await fetch('/options', requestOptions);
+
+                if (response.ok) {
+                    window.location.href = 'after-options-submit.html';
+                } else {
+                    console.error('Error submitting options');
+                }
+            });
+        </script>
+
     </body>
 </html>
 
