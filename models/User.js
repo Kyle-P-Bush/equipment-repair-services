@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-    // Your schema definition here
     name: String,
     address: String,
     city: String,
@@ -14,5 +13,15 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-module.exports = User;
+const UserOptionsSchema = new Schema({
+  brand: String,
+  equipment: String,
+  requests: [String],
+  symptoms: [String],
+  userId: { type: Schema.Types.ObjectId, ref: 'User' },
+});
+
+const UserOptions = mongoose.model('UserOptions', UserOptionsSchema);
+
+module.exports = {User, UserOptions};
 
