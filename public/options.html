@@ -73,7 +73,7 @@
                             <label for="checkbox10">Smokes</label>
                             <br>
                             <input type="checkbox" id="checkbox11" name="checkbox11" value="Blades will not turn">
-                            <label for="checkbox10">Blades will not turn</label>
+                            <label for="checkbox11">Blades will not turn</label>
                             <br>
                             <label for="checkboxes">Proceed to Scheduler</label>
                             <br>
@@ -102,7 +102,7 @@
         <script>
             document.getElementById('options-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
-
+                console.log('Form submitted');
                 const formData = new FormData(e.target);
                 const brand = formData.get('brand');
                 const equipment = formData.get('equipment');
@@ -120,7 +120,7 @@
                         symptoms.push(formData.get(`checkbox${i}`));
                     }
                 }
-
+                console.log({ brand, equipment, requests, symptoms });
                 const requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -130,6 +130,7 @@
                 const response = await fetch('/options', requestOptions);
 
                 if (response.ok) {
+                    console.log('Options submitted successfully');
                     window.location.href = 'after-options-submit.html';
                 } else {
                     console.error('Error submitting options');

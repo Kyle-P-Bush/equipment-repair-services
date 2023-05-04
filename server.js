@@ -23,7 +23,7 @@ app.use(express.static('public'));
 
 //express-session for cookies
 app.use(session({
-    secret: process.env.SESSION_SECRET, // Replace this with a unique secret for your application
+    secret: process.env.SESSION_SECRET, 
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -48,11 +48,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/options.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/options.html'));
+app.get('/options.html', ensureAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/options.html'));
 });
 
-app.get('/some-page-after-submitting-options', (req, res) => {
+app.get('/after-options-submit', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/after-options-submit.html'));
 });
 
@@ -96,37 +96,41 @@ app.post("/register", async (req, res) => {
     res.send("User registered successfully");
 });
 
-app.post("/login", async (req, res) => {
-    // Find the user in the database using the provided email
-    const user = await User.findOne({ email: req.body.email });
-
-    // If the user is not found, return an error
-    if (!user) {
-        return res.status(400).send("Email or password is incorrect");
-    }
-
-    // Compare the provided password with the hashed password stored in the database
-    const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
-
-    // If the password is not valid, return an error
-    if (!isPasswordValid) {
-        return res.status(400).send("Email or password is incorrect");
-    }
-
-    // If the email and password are valid, return a success message
-    res.json({message: "User logged in successfully" });
+app.post("/login", async (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.status(400).send("Email or password is incorrect");
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            req.session.user = user; 
+            res.json({message: "User logged in successfully" });
+        });
+    })(req, res, next);
 });
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}
 
 app.post('/options', async (req, res) => {
     const { brand, equipment, requests, symptoms } = req.body;
 
-    if (req.isAuthenticated()) {
+    if (req.session && req.session.user) { 
         const userOptions = new UserOptions({
             brand,
             equipment,
             requests,
             symptoms,
-            userId: req.user.id,
+            userId: req.session.user._id, 
         });
 
         try {
@@ -140,8 +144,6 @@ app.post('/options', async (req, res) => {
         res.status(401).send('Unauthorized');
     }
 });
-
-
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
