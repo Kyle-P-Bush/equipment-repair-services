@@ -5,6 +5,23 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
     <body>
+        <style>
+            .grid-container {
+                display: grid;
+                grid-template-columns: repeat(4,410px );
+                grid-template-rows: repeat(1, 750px);
+                gap: 10px;
+                background-color: #0a1610;
+
+            }  
+            .grid-item {
+                background-color: #2acc80;
+                border: 1px solid #35260a;
+                padding: 20px;
+                font-size: 18px;
+                text-align: left;
+            }
+        </style>
         <div class="bg-success text-black">		
             <div class="d-flex flex-row bd-highlight mb-3">
                 <div> <img src='assets/one.jpg'height='225' width='600'></div>
@@ -15,126 +32,226 @@
             <h2 class="text-center" style="font-style: normal">Outdoor Power Sales & Solutions Estimate Repair Scheduler</h2>
             </p> 
 
-            <div class="d-flex bd-highlight ">
-                <div  style="background-color:#797264" >
-                    <div class="col-md-9">
 
-                        <form id ="options-form"action="/calendar.php">
-                            <label for="brand">Choose your mower brand:</label>
-                            <select id="brand" name="brand">
-                                <option value="Toro">Toro</option>
-                                <option value="Exmark">Exmark</option>
-                                <option value="John Deere">John Deere</option>
-                                <option value="Husqvarna">Husqvarna</option>
-                                <option value="Other">Other</option>
-                            </select>
-                            <br>
-                            <label for="equipment">Choose the type of equipment:</label>
-                            <select id="equipment" name="equipment">
-                                <option value="Walk Mower">Walk Mower</option>
-                                <option value="Zero Turn">Zero Turn </option>
-                                <option value="Stander">Stander</option>
-                                <option value="Midsize">Midsize</option>
-                                <option value="Other">Other</option>
-                            </select>
-                            <br>
-                            <label for="checkboxes">Select your requests:</label>
-                            <br>
-                            <input type="checkbox" id="checkbox1" name="checkbox1" value="Tune up engine">
-                            <label for="checkbox1">Tune up engine</label>
-                            <br>
-                            <input type="checkbox" id="checkbox2" name="checkbox2" value="Change all filters and fluids">
-                            <label for="checkbox2">Change all filters and fluids</label>
-                            <br>
-                            <input type="checkbox" id="checkbox3" name="checkbox3" value="Sharpen blades">
-                            <label for="checkbox3">Sharpen blades</label>										
-                            <br>
-                            <input type="checkbox" id="checkbox4" name="checkbox4" value="Check belts">
-                            <label for="checkbox4">Check Belts</label>
-                            <br>
-                            <input type="checkbox" id="checkbox5" name="checkbox5" value="Repair flats">
-                            <label for="checkbox5">Repair flats</label>
-                            <br>
-                            <input type="checkbox" id="checkbox6" name="checkbox6" value="Check starter">
-                            <label for="checkbox6">Check starter</label>
-                            <br>
-                            <label for="checkboxes">Symptoms:</label>
-                            <br>
-                            <input type="checkbox" id="checkbox7" name="checkbox7" value="Will not start">
-                            <label for="checkbox7">Will not start</label>
-                            <br>
-                            <input type="checkbox" id="checkbox8" name="checkbox8" value="Cuts uneven">
-                            <label for="checkbox8">Cuts uneven</label>
-                            <br>
-                            <input type="checkbox" id="checkbox9" name="checkbox9" value="Motion system not functioning">
-                            <label for="checkbox9">Motion system not functioning</label>										
-                            <br>
-                            <input type="checkbox" id="checkbox10" name="checkbox10" value="Smokes">
-                            <label for="checkbox10">Smokes</label>
-                            <br>
-                            <input type="checkbox" id="checkbox11" name="checkbox11" value="Blades will not turn">
-                            <label for="checkbox11">Blades will not turn</label>
-                            <br>
-                            <label for="checkboxes">Proceed to Scheduler</label>
-                            <br>
-                            <input type="submit" value="Submit ">
-                        </form>
-                    </div>
-                </div>	
-                <div >
-
-                    <ul>    
-                        <li><h3>Choose your mower brand.</h3> </li>
-                        <br>	
-                        <li><h3>Tell us the type of equipment that you have. </h3> </li>
+                    <form id ="options-form">
+                    <div class="d-flex bd-highlight ">
+                        <div class="grid-item" ><h4>Select Options</h4>
+                        <label for="brand">Choose your mower brand:</label>
+                        <select id="brand" name="brand">
+                            <option value="Toro">Toro</option>
+                            <option value="Exmark">Exmark</option>
+                            <option value="John Deere">John Deere</option>
+                            <option value="Husqvarna">Husqvarna</option>
+                            <option value="Other">Other</option>
+                        </select>
                         <br>
-                        <li><h3>Check off service requests that are needed.</h3> </li>	
-                        <br><br><br><br><br><br><br>
-                        <li><h3>Check off any symtoms that the unit is experiencing. </h3>   </li> 
-                        <br> <br> <br> <br> <br> <br> 
-                        <li><h3>Click submit to request type of service and schedule </h3>   </li> <br>
-                    </ul>
+                        <label for="equipment">Choose the type of equipment:</label>
+                        <select id="equipment" name="equipment">
+                            <option value="Walk Mower">Walk Mower</option>
+                            <option value="Zero Turn">Zero Turn </option>
+                            <option value="Stander">Stander</option>
+                            <option value="Midsize">Midsize</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <br>
+                        <label class="into" for="checkboxes"><strong>Select your requests:</strong></label>
+                        <br>
+                        <input type="checkbox" id="checkbox1" name="requests" value="Tune up engine">
+                        <label for="checkbox1">Tune up engine</label>
+                        <br>
+                        <input type="checkbox" id="checkbox2" name="requests" value="Change all filters and fluids">
+                        <label for="checkbox2">Change all filters and fluids</label>
+                        <br>
+                        <input type="checkbox" id="checkbox3" name="requests" value="Sharpen blades">
+                        <label for="checkbox3">Sharpen blades</label>										
+                        <br>
+                        <input type="checkbox" id="checkbox4" name="requests" value="Check belts">
+                        <label for="checkbox4">Check Belts</label>
+                        <br>
+                        <input type="checkbox" id="checkbox5" name="requests" value="Repair flats">
+                        <label for="checkbox5">Repair flats</label>
+                        <br>
+                        <input type="checkbox" id="checkbox6" name="requests" value="Check starter">
+                        <label for="checkbox6">Check starter</label>
+                        <br>
+                        <label for="checkboxes">Symptoms:</label>
+                        <br>
+                        <input type="checkbox" id="checkbox7" name="symptoms" value="Will not start">
+                        <label for="checkbox7">Will not start</label>
+                        <br>
+                        <input type="checkbox" id="checkbox8" name="symptoms" value="Cuts uneven">
+                        <label for="checkbox8">Cuts uneven</label>
+                        <br>
+                        <input type="checkbox" id="checkbox9" name="symptoms" value="Motion system not functioning">
+                        <label for="checkbox9">Motion system not functioning</label>										
+                        <br>
+                        <input type="checkbox" id="checkbox10" name="symptoms" value="Smokes">
+                        <label for="checkbox10">Smokes</label>
+                        <br>
+                        <input type="checkbox" id="checkbox11" name="symptoms" value="Blades will not turn">
+                        <label for="checkbox11">Blades will not turn</label>
+                        <br>
+                        <label for="checkboxes">Proceed to Scheduler</label>
+                        <br>
+                </div>	
+                <div class="grid-item">
+                    <div >
+
+                        <ul>    
+                            <li><h3>Choose your mower brand.</h3> </li>
+                            <br>	
+                            <li><h3>Tell us the type of equipment that you have. </h3> </li>
+                            <br>
+                            <li><h3>Check off service requests that are needed.</h3> </li>	
+                            <br><br><br><br><br><br><br>
+                            <li><h3>Check off any symtoms that the unit is experiencing. </h3>   </li> 
+                            <br> <br> <br> <br> <br> <br> 
+                            <li><h3>Click submit to request type of service and schedule </h3>   </li> <br>
+                        </ul>
+                    </div>    
                 </div>    
-                <div> <img src='assets/download.png'height='500' width='800'></div>
-            </div>	
+                <div class="grid-item"> 
+                        <label for="year" ><strong>Choose the year</strong></label>
+                        <br>
+                        <select id="year" name="year">
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                        </select>  
+                        <br>   
+                        <label for="month" ><strong>Choose the month</strong></label>
+                        <br>
+                        <select id="month" name="month">
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>   
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+                        </select>  
+                        <br>    
+
+                        <label for="day"><strong>Choose the day</strong></label>
+                        <br>
+                        <select id="day" name="day">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>                    
+                        </select>
+                        <br> 
+                        <label for="time" ><strong>Choose the time</strong></label>
+                        <br>
+                        <select id="time" name="time">
+                            <option value="9:00 am">9:00 am</option>
+                            <option value="10:00 am">10:00 am</option>
+                            <option value="11:00 am">11:00 am</option>
+                            <option value="12:00 pm">12:00 pm</option>
+                            <option value="1:00 pm">1:00 pm</option>
+                            <option value="2:00 pm">2:00 pm</option>   
+                            <option value="3:00 pm">3:00 pm</option>
+                        </select>  
+                        <br>  
+
+                        <label for="type" ><strong>Choose the type of appointment</strong></label>
+                        <br>
+                        <select id="type" name="type">
+                            <option value="tech visit"> Onsite consultation</option>
+                            <option value="pick up">Pick up my equipment</option>
+                            <option value="mobile repair">Repair on site</option>                
+                        </select>
+                        <br> <br>
+                        <input type="checkbox" id="checkbox15" name="checkbox15" value="Agree">
+                        <br>
+                        <label for="checkboxes"><strong>All fields have been entered and I agree to be contacted. </strong></label>
+                        <label for="checkboxes"><strong>Schedule my appointment </strong></label>
+                        <br>
+                        <button id="submit-button" type="submit">Schedule</button>
+                    </form>   
+
+
+                </div>
+                <div ><img src='assets/download.png'height='550' width='800'></div>
+
+            </div>
+        </div>
+        </div>	
         </div>
         </div>
+
         <script>
-            document.getElementById('options-form').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                console.log('Form submitted');
-                const formData = new FormData(e.target);
-                const brand = formData.get('brand');
-                const equipment = formData.get('equipment');
-                const requests = [];
-                const symptoms = [];
+            function gatherFormData(form) {
+                const formData = new FormData(form);
+                const data = {};
 
-                for (let i = 1; i <= 6; i++) {
-                    if (formData.get(`checkbox${i}`)) {
-                        requests.push(formData.get(`checkbox${i}`));
+                for(let pair of formData.entries()) {
+                    if(pair[0] === "requests" || pair[0] === "symptoms") {
+                        if(!data[pair[0]]) {
+                            data[pair[0]] = [];
+                        }
+                        data[pair[0]].push(pair[1]);
+                    } else if(pair[0] === "year" || pair[0] === "month" || pair[0] === "day" || pair[0] === "time" || pair[0] === "type") {
+                        if(!data["schedule"]) {
+                            data["schedule"] = {};
+                        }
+                        data["schedule"][pair[0]] = pair[1];
+                    } else {
+                        data[pair[0]] = pair[1];
                     }
                 }
 
-                for (let i = 7; i <= 11; i++) {
-                    if (formData.get(`checkbox${i}`)) {
-                        symptoms.push(formData.get(`checkbox${i}`));
-                    }
-                }
-                console.log({ brand, equipment, requests, symptoms });
-                const requestOptions = {
+                return data;
+            }
+
+            document.getElementById('options-form').addEventListener('submit', (event) => {
+                event.preventDefault();
+                const data = gatherFormData(event.target);
+
+                fetch('/options', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ brand, equipment, requests, symptoms }),
-                };
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.text()) // parse response as text
+                    .then(data => console.log(data))
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
 
-                const response = await fetch('/options', requestOptions);
 
-                if (response.ok) {
-                    console.log('Options submitted successfully');
-                    window.location.href = 'after-options-submit.html';
-                } else {
-                    console.error('Error submitting options');
-                }
             });
         </script>
 

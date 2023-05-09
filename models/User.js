@@ -20,6 +20,11 @@ const UserOptionsSchema = new Schema({
   requests: [String],
   symptoms: [String],
   userId: { type: Schema.Types.ObjectId, ref: 'User' },
+  schedule: {
+    date: Date,
+    time: String, 
+    description: String
+  }
 });
 
 const UserOptions = mongoose.model('UserOptions', UserOptionsSchema);

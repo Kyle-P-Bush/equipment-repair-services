@@ -122,7 +122,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.post('/options', async (req, res) => {
-    const { brand, equipment, requests, symptoms } = req.body;
+    const { brand, equipment, requests, symptoms, schedule} = req.body;
 
     if (req.session && req.session.user) { 
         const userOptions = new UserOptions({
@@ -130,6 +130,7 @@ app.post('/options', async (req, res) => {
             equipment,
             requests,
             symptoms,
+            schedule,
             userId: req.session.user._id, 
         });
 
@@ -144,6 +145,31 @@ app.post('/options', async (req, res) => {
         res.status(401).send('Unauthorized');
     }
 });
+
+app.post('/schedule', async (req, res) => {
+    // Assume you have a Schedule model defined somewhere
+    const { date, time, description } = req.body;
+
+    if (req.session && req.session.user) {
+        const userSchedule = new Schedule({
+            date,
+            time,
+            description,
+            userId: req.session.user._id,
+        });
+
+        try {
+            await userSchedule.save();
+            res.status(201).send('Schedule saved');
+        } catch (err) {
+            res.status(500).send('Error saving schedule');
+            console.error(err);
+        }
+    } else {
+        res.status(401).send('Unauthorized');
+    }
+});
+
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
