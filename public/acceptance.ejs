@@ -1,55 +1,52 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Acceptance Information</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-      
-    </head>
-    <body>
-        <div class="bg-success text-black">		
-            <div class="d-flex flex-row bd-highlight mb-3">
-                <div> <img src='assets/one.jpg'height='225' width='600'></div>
-                <div> <img src='assets/two.jpg'height='225' width='670'></div>
-                <div> <img src='assets/three.png'height='225' width='650'></div>    
+<head>
+    <title>Acceptance Information</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            .center-text {
+                font-style: normal;
+            }
+            .mt-custom {
+                margin-top: 5rem;
+            }
+            .container-custom {
+                background-color: #97978c;
+            }
+            .img-custom {
+                max-width: 60%;
+                height: auto;
+            }
+        </style>
+</head>
+<body class="bg-success">
+    <div class="bg-success text-black">     
+        <h2 class="text-center mt-3" style="font-style: normal">Outdoor Power Sales & Solutions Acceptance Page</h2>
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-4 bg-light border border-dark p-3" id="acceptance">
+                <h2>Thanks for making an appointment with us, <%= user.name %>! We are looking forward to servicing your equipment.</h2>
+                <h3> Appointment Details:</h3>
+                <ul>
+                    <li>Service Type: <%= userOptions.schedule.description%></li>
+                    <li>Brand of Equipment: <%= userOptions.brand %></li>
+                    <li>Equipment Type: <%= userOptions.equipment %></li>
+                    <li>Requests: <%= userOptions.requests %></li>
+                    <li>Symptoms: <%= userOptions.symptoms %></li>
+                    <li>Appointment Time: <%= userOptions.schedule.date %> at <%= userOptions.schedule.time %></li>
+                </ul>
+                <img src='assets/download.png' class="img-fluid">
             </div>
-            <p> 
-            <h2 class="text-center" style="font-style: normal">Outdoor Power Sales & Solutions Acceptance Page</h2>
-            </p> 
-
-            <div class="d-flex bd-highlight ">
-                <div >
-
-                    <ul>    
-                        <li><h3>Your appointment has been confirmed</h3> </li>
-                        <br><br>	
-                        <li><h3>Please have the equipment accessible  </h3> </li>
-                        <br><br>
-                        <li><h3>Expect a call or text one hour before the appointment</h3> </li>	
-                        <br><br>
-                        <li><h3>Cancellations must give 24 hour notice</h3>   </li> 
-                        <br> <br>
-                        <li><h3>Have all documentaion ready  </h3>   </li> <br>
-                        <br> <br><br><br>  <br> <br><br><br>  <br> <br><br><br>
-                    </ul>
-                </div>                
-                
-                <div  class ="col-md-4" id="acceptance" style="background-color:#93e49e" class="border border-dark">                   
-                    <div class="row justify-content-center">
-                        <h1>Acceptance Information</h1>
-                        <h2>Thanks for your order <%= user.name %>! We are looking forward to servicing your equipment.</h2>
-                        <h3>Service Type: <%= userOptions.schedule.description%></h3>
-                        <h3>Brand of Equipment: <%= userOptions.brand %></h3>
-                        <h3>Equipment Type: <%= userOptions.equipment %></h3>
-                        <h3>Requests: <%= userOptions.requests %></h3>
-                        <h3>Symptoms: <%= userOptions.symptoms %></h3>
-                        <h3>Appointment Time: <%= userOptions.schedule.date %> at <%= userOptions.schedule.time %></h3>
-                      </div>
-                </div>	
-              
-               
-                <div> <img src='assets/download.png'height='500' width='800'></div>
-            </div>	
+            <div class="col-lg-4">
+                <ul>    
+                    <li><h3>Please have the equipment accessible</h3></li>
+                    <li><h3>Expect a call or text one hour before the appointment</h3></li>
+                    <li><h3>Cancellations must give 24 hour notice</h3></li>
+                    <li><h3>Have all documentation ready</h3></li>
+                </ul>
+            </div> 
         </div>
-        </div>
-    </body>
+    </div>
+</body>
 </html>
 
