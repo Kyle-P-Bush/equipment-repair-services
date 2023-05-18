@@ -225,10 +225,23 @@
                         if(!data["schedule"]) {
                             data["schedule"] = {};
                         }
-                        data["schedule"][pair[0]] = pair[1];
+                        if (pair[0] === "year" || pair[0] === "month" || pair[0] === "day") {
+                            if(!data["schedule"]["date"]) {
+                                data["schedule"]["date"] = '';
+                            }
+                            data["schedule"]["date"] += pair[1] + '-';
+                        } else if (pair[0] === "type") {
+                            data["schedule"]["description"] = pair[1];
+                        } else {
+                            data["schedule"][pair[0]] = pair[1];
+                        }
                     } else {
                         data[pair[0]] = pair[1];
                     }
+                }
+                // Remove trailing '-' from date
+                if(data["schedule"] && data["schedule"]["date"]) {
+                    data["schedule"]["date"] = data["schedule"]["date"].slice(0, -1);
                 }
 
                 return data;
@@ -245,12 +258,19 @@
                     },
                     body: JSON.stringify(data)
                 })
-                    .then(response => response.text()) // parse response as text
-                    .then(data => console.log(data))
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.text(); // if response is okay, proceed
+                    })
+                    .then(data => {
+                        console.log(data);
+                        window.location.href = "/acceptance"; // redirect to acceptance page
+                    })
                     .catch((error) => {
                         console.error('Error:', error);
                     });
-
 
             });
         </script>

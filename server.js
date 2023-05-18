@@ -38,6 +38,9 @@ require('./config/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.set('views', path.join(__dirname, 'public'));
+app.set('view engine', 'ejs');
+
 
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -136,7 +139,7 @@ app.post('/options', async (req, res) => {
 
         try {
             await userOptions.save();
-            res.status(201).send('User options saved');
+            res.redirect('/acceptance');
         } catch (err) {
             res.status(500).send('Error saving user options');
             console.error(err);
@@ -169,6 +172,14 @@ app.post('/schedule', async (req, res) => {
         res.status(401).send('Unauthorized');
     }
 });
+
+app.get('/acceptance', ensureAuthenticated, async (req, res) => {
+    const user = await User.findById(req.session.user._id);
+    const userOptions = await UserOptions.findOne({userId: user._id});
+
+    res.render('acceptance', {user, userOptions});
+});
+
 
 
 app.listen(3000, () => {
