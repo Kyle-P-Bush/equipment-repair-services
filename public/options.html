@@ -74,7 +74,7 @@
                         <input type="checkbox" id="checkbox6" name="requests" value="Check starter">
                         <label for="checkbox6">Check starter</label>
                         <br>
-                        <label for="checkboxes">Symptoms:</label>
+                        <label for="checkboxes"><strong>Symptoms:</strong></label>
                         <br>
                         <input type="checkbox" id="checkbox7" name="symptoms" value="Will not start">
                         <label for="checkbox7">Will not start</label>
@@ -211,6 +211,7 @@
         </div>
 
         <script>
+
             function gatherFormData(form) {
                 const formData = new FormData(form);
                 const data = {};
@@ -229,16 +230,19 @@
                             if(!data["schedule"]["date"]) {
                                 data["schedule"]["date"] = '';
                             }
-                            data["schedule"]["date"] += pair[1] + '-';
+                            // Ensure all parts of the date are two digits
+                            let part = pair[1].length < 2 ? '0' + pair[1] : pair[1];
+                            data["schedule"]["date"] += part + '-';
                         } else if (pair[0] === "type") {
                             data["schedule"]["description"] = pair[1];
-                        } else {
-                            data["schedule"][pair[0]] = pair[1];
+                        } else if (pair[0] === "time") {
+                            data["schedule"]["time"] = pair[1];
                         }
                     } else {
                         data[pair[0]] = pair[1];
                     }
                 }
+
                 // Remove trailing '-' from date
                 if(data["schedule"] && data["schedule"]["date"]) {
                     data["schedule"]["date"] = data["schedule"]["date"].slice(0, -1);
@@ -246,7 +250,6 @@
 
                 return data;
             }
-
             document.getElementById('options-form').addEventListener('submit', (event) => {
                 event.preventDefault();
                 const data = gatherFormData(event.target);

@@ -45,7 +45,7 @@ const UserOptionsSchema = new Schema({
   symptoms: [String],
   userId: { type: Schema.Types.ObjectId, ref: 'User' },
   schedule: {
-    date: Date,
+    date: String,
     time: String, 
     description: String
   }

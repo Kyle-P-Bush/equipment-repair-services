@@ -1,7 +1,6 @@
 <html>
     <head>
-        <title>Dropdowns and Checkboxes Example</title>
-        <title>Customer Login</title>
+        <title>Acceptance Information</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       
     </head>
@@ -36,8 +35,13 @@
                 <div  class ="col-md-4" id="acceptance" style="background-color:#93e49e" class="border border-dark">                   
                     <div class="row justify-content-center">
                         <h1>Acceptance Information</h1>
-                        <h2>Name: <%= user.name %></h2>
-                        <h2>Brand of Equipment: <%= userOptions.brand %></h2>
+                        <h2>Thanks for your order <%= user.name %>! We are looking forward to servicing your equipment.</h2>
+                        <h3>Service Type: <%= userOptions.schedule.description%></h3>
+                        <h3>Brand of Equipment: <%= userOptions.brand %></h3>
+                        <h3>Equipment Type: <%= userOptions.equipment %></h3>
+                        <h3>Requests: <%= userOptions.requests %></h3>
+                        <h3>Symptoms: <%= userOptions.symptoms %></h3>
+                        <h3>Appointment Time: <%= userOptions.schedule.date %> at <%= userOptions.schedule.time %></h3>
                       </div>
                 </div>	
               
